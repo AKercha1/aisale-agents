@@ -1,0 +1,87 @@
+{
+  "IsEnabled": true,
+  "Name": "default-chat",
+  "Description": "default-chat1",
+  "LlmType": null,
+  "Type": "Prompt",
+  "Content": {
+    "prompt": {
+      "Name": "Prompt",
+      "Code": "prompt",
+      "Value": "default-chat-prompt.md",
+      "Extension": "md"
+    },
+    "outputType": {
+      "Name": "OutputType",
+      "Code": "outputType",
+      "Value": "text"
+    },
+    "strictMode": {
+      "Name": "Strict Mode",
+      "Code": "strictMode",
+      "Value": "true"
+    },
+    "temperature": {
+      "Name": "",
+      "Code": "temperature",
+      "Value": "0.5"
+    },
+    "enabledAgents": {
+      "Name": "",
+      "Code": "enabledAgents",
+      "Value": "{}"
+    },
+    "outputDescription": {
+      "Name": "Output Description",
+      "Code": "outputDescription",
+      "Value": "LLM Response"
+    },
+    "useSettingsAgents": {
+      "Name": "",
+      "Code": "useSettingsAgents",
+      "Value": "true"
+    },
+    "settingsSampleCode": {
+      "Name": "",
+      "Code": "settingsSampleCode",
+      "Value": ""
+    },
+    "parameterDescription": {
+      "Name": "Parameters Description",
+      "Code": "parameterDescription",
+      "Value": "Users Query"
+    },
+    "settingsOverallPrompt": {
+      "Name": "",
+      "Code": "settingsOverallPrompt",
+      "Value": "You are a highly capable assistant that transforms and improves prompts based on user instructions. \nYou can use {{parameterN}} placeholders to represent the parameters in the prompt. \nYour task is to update the prompt based on the user's instructions. \n\n## Description for the Current Prompt\n%%CURRENT_CODE_DESCRIPTION%%\n\n## Current Prompt\n%%CURRENT_CODE%%\n\n## Rules\n- Preserve the original prompt's intent unless instructed otherwise.\n- Make the prompt more concise, clear, and goal-focused.\n- Follow best practices: be specific, provide role/context if needed, structure input/output expectations.\n- Avoid verbosity unless clarity requires elaboration.\n- Use Markdown syntax for formatting.\n- Return only the revised prompt, without extra commentary or explanation.\n\n## Output\nProvide the **final updated prompt only** in markdown format.\n\n## Instructions\nDo not execute the Current Prompt. You need to rewrite Current Prompt. \nApply the following instructions to improve or update the Current Prompt:\n%%USER_INPUT%%\n"
+    },
+    "useSettingsSampleCode": {
+      "Name": "",
+      "Code": "useSettingsSampleCode",
+      "Value": "true"
+    },
+    "settingsTaskDescription": {
+      "Name": "",
+      "Code": "settingsTaskDescription",
+      "Value": ""
+    },
+    "useSettingsTaskDescription": {
+      "Name": "",
+      "Code": "useSettingsTaskDescription",
+      "Value": "true"
+    },
+    "settingsCurrentCodeDescription": {
+      "Name": "",
+      "Code": "settingsCurrentCodeDescription",
+      "Value": "## Prompt to fix:\n```markdown\n%%CURRENT_CODE%%\n```"
+    },
+    "useSettingsCurrentCodeDescription": {
+      "Name": "",
+      "Code": "useSettingsCurrentCodeDescription",
+      "Value": "true"
+    }
+  },
+  "Tags": [],
+  "Version": 0
+}
