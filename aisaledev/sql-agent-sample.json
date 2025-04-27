@@ -1,5 +1,5 @@
 {
-  "IsEnabled": true,
+  "IsEnabled": false,
   "Name": "sql-agent-sample",
   "Description": "sql-agent-sample",
   "LlmType": null,

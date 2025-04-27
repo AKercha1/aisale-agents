@@ -1,0 +1,27 @@
+{
+  "IsEnabled": true,
+  "Name": "company-search-flow",
+  "Description": "Find middle-size companies in search engine and put into DB",
+  "LlmType": null,
+  "Type": "PythonCode",
+  "Content": {
+    "pythonCode": {
+      "Name": "PythonCode",
+      "Code": "pythonCode",
+      "Value": "company-search-flow-pythonCode.py",
+      "Extension": "py"
+    },
+    "outputDescription": {
+      "Name": "Output Description",
+      "Code": "outputDescription",
+      "Value": "Empty String"
+    },
+    "parameterDescription": {
+      "Name": "Parameters Description",
+      "Code": "parameterDescription",
+      "Value": "Area"
+    }
+  },
+  "Tags": [],
+  "Version": 0
+}
