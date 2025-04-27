@@ -11,15 +11,65 @@
       "Value": "company-search-flow-pythonCode.py",
       "Extension": "py"
     },
+    "temperature": {
+      "Name": "",
+      "Code": "temperature",
+      "Value": "0.5"
+    },
+    "enabledAgents": {
+      "Name": "",
+      "Code": "enabledAgents",
+      "Value": "{\"2\":true,\"5\":true,\"6\":true}"
+    },
     "outputDescription": {
       "Name": "Output Description",
       "Code": "outputDescription",
       "Value": "Empty String"
     },
+    "useSettingsAgents": {
+      "Name": "",
+      "Code": "useSettingsAgents",
+      "Value": "true"
+    },
+    "settingsSampleCode": {
+      "Name": "",
+      "Code": "settingsSampleCode",
+      "Value": "## Sample of the code just to describe base capabilities and syntax:\n\n# use the following syntax to install packages (# before cmd is required):\n# cmd:pip install package_name  \n\n# include only required imports\nimport json  \n\n# The syntax to provide debug information. Use only if you have explicit instructions to do so. Parameters: sender, title, details\nResponseAccessor.AddDebugMessage(\"Agent\", \"Debug\", \"Debug message\")\n\n# all parameter values must be taken from \"Parameters\". Keys are \"parameter1\", \"parameter2\", etc.\ntextToTranslate = Parameters[\"parameter1\"]  \n\n# sample usage of imported package\nsomeJson = json.loads(Parameters[\"parameter2\"])\n\n# The syntax to work with files from the message. The file is stored in the last message in the list of messages. Use only if the agent receives files.\nbase64file = RequestAccessor.MessageDialog.Messages[RequestAccessor.MessageDialog.Messages.Count - 1].Files[0].Base64Data.split(\",\")[1]\n\n# The syntax to run other agents. First parameter is Agent name. Second parameter - List of strings with parameters for the specified agent.\nresult = ExecuteAgent(\"Translate\", [textToTranslate, \"ru\"])"
+    },
     "parameterDescription": {
       "Name": "Parameters Description",
       "Code": "parameterDescription",
       "Value": "Area"
+    },
+    "settingsOverallPrompt": {
+      "Name": "",
+      "Code": "settingsOverallPrompt",
+      "Value": "%%USER_INPUT%%\r\n\r\n%%COMMON_TASK_DESCRIPTION%%\r\n\r\n%%SAMPLE_CODE%%\r\n\r\n%%CURRENT_CODE_PLACEHOLDER%%\r\n\r\n%%AGENTS_DESCRIPTION%%"
+    },
+    "useSettingsSampleCode": {
+      "Name": "",
+      "Code": "useSettingsSampleCode",
+      "Value": "true"
+    },
+    "settingsTaskDescription": {
+      "Name": "",
+      "Code": "settingsTaskDescription",
+      "Value": "## Common Instructions\n- Generate valid Python code.\n- Do not manually implement functionality that Available Agents can provide.\n- All descriptions must be incorporated as comments. Use descriptions only when needed.\n- Result must be set to the variable \"result\". If the result is a string, return it as is. If the result is an object, return it in JSON format. If the result is binary data, return it as base64 encoded string."
+    },
+    "useSettingsTaskDescription": {
+      "Name": "",
+      "Code": "useSettingsTaskDescription",
+      "Value": "true"
+    },
+    "settingsCurrentCodeDescription": {
+      "Name": "",
+      "Code": "settingsCurrentCodeDescription",
+      "Value": "## Code to fix:\n%%CURRENT_CODE_DESCRIPTION%%\n```python\n%%CURRENT_CODE%%\n```"
+    },
+    "useSettingsCurrentCodeDescription": {
+      "Name": "",
+      "Code": "useSettingsCurrentCodeDescription",
+      "Value": "true"
     }
   },
   "Tags": [],
