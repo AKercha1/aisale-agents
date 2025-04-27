@@ -1,5 +1,5 @@
 {
-  "IsEnabled": true,
+  "IsEnabled": false,
   "Name": "company-search-flow",
   "Description": "Find middle-size companies in search engine and put into DB",
   "LlmType": null,

@@ -1,5 +1,5 @@
 {
-  "IsEnabled": true,
+  "IsEnabled": false,
   "Name": "db-initialization",
   "Description": "Initialize Database",
   "LlmType": null,

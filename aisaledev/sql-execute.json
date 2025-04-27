@@ -1,0 +1,36 @@
+{
+  "IsEnabled": false,
+  "Name": "sql-execute",
+  "Description": "Execute custom SQL in PostgreSQL DB ",
+  "LlmType": null,
+  "Type": "PostgreSql",
+  "Content": {
+    "sqlQuery": {
+      "Name": "SQL Query",
+      "Code": "sqlQuery",
+      "Value": "{{parameter1}}"
+    },
+    "connectionName": {
+      "Name": "PostgreSQL Connection Name",
+      "Code": "connectionName",
+      "Value": "local-postgresql-connection"
+    },
+    "addSessionContext": {
+      "Name": "Add Session Context",
+      "Code": "addSessionContext",
+      "Value": "false"
+    },
+    "outputDescription": {
+      "Name": "Output Description",
+      "Code": "outputDescription",
+      "Value": "SQL Result"
+    },
+    "parameterDescription": {
+      "Name": "Parameters Description",
+      "Code": "parameterDescription",
+      "Value": "Query"
+    }
+  },
+  "Tags": [],
+  "Version": 0
+}

@@ -1,0 +1,52 @@
+{
+  "IsEnabled": true,
+  "Name": "company-search-generate-prompt",
+  "Description": "Generate Query for Search Engine to find Companies",
+  "LlmType": "3",
+  "Type": "Prompt",
+  "Content": {
+    "top_p": {
+      "Name": "Top P",
+      "Code": "top_p",
+      "Value": "0.8"
+    },
+    "prompt": {
+      "Name": "Prompt",
+      "Code": "prompt",
+      "Value": "company-search-generate-prompt-prompt.md",
+      "Extension": "md"
+    },
+    "jsonSchema": {
+      "Name": "JSON Schema",
+      "Code": "jsonSchema",
+      "Value": "{\r\n  \"$schema\": \"https://json-schema.org/draft/2020-12/schema\",\r\n  \"type\": \"object\",\r\n  \"properties\": {\r\n    \"queries\": {\r\n      \"type\": \"array\",\r\n      \"items\": {\r\n        \"type\": \"string\"\r\n      }\r\n    }\r\n  },\r\n  \"required\": [\"queries\"],\r\n  \"additionalProperties\": false\r\n}"
+    },
+    "outputType": {
+      "Name": "OutputType",
+      "Code": "outputType",
+      "Value": "json"
+    },
+    "strictMode": {
+      "Name": "Strict Mode",
+      "Code": "strictMode",
+      "Value": "false"
+    },
+    "temperature": {
+      "Name": "Temperature",
+      "Code": "temperature",
+      "Value": "0.5"
+    },
+    "outputDescription": {
+      "Name": "Output Description",
+      "Code": "outputDescription",
+      "Value": "Search Query"
+    },
+    "parameterDescription": {
+      "Name": "Parameters Description",
+      "Code": "parameterDescription",
+      "Value": "Count,Country,Industry,Company Size,Search Engine"
+    }
+  },
+  "Tags": [],
+  "Version": 0
+}
