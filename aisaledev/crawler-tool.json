@@ -18,7 +18,7 @@
     "crawlDepth": {
       "Name": "Crawl Depth",
       "Code": "crawlDepth",
-      "Value": "1"
+      "Value": "2"
     },
     "maxUrlsCount": {
       "Name": "Max Urls Count",
