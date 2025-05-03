@@ -1,0 +1,41 @@
+{
+  "IsEnabled": true,
+  "Name": "crawler-tool",
+  "Description": "crawler-tool",
+  "LlmType": null,
+  "Type": "WebCrawler",
+  "Content": {
+    "url": {
+      "Name": "Url",
+      "Code": "url",
+      "Value": "{{parameter1}}"
+    },
+    "crawlDepth": {
+      "Name": "Crawl Depth",
+      "Code": "crawlDepth",
+      "Value": "2"
+    },
+    "maxUrlsCount": {
+      "Name": "Max Urls Count",
+      "Code": "maxUrlsCount",
+      "Value": "100"
+    },
+    "crawlUrlRegex": {
+      "Name": "Crawl Url Regex",
+      "Code": "crawlUrlRegex",
+      "Value": "{{parameter2}}"
+    },
+    "outputDescription": {
+      "Name": "Output Description",
+      "Code": "outputDescription",
+      "Value": "Pages"
+    },
+    "parameterDescription": {
+      "Name": "Parameters Description",
+      "Code": "parameterDescription",
+      "Value": "Url,Domain"
+    }
+  },
+  "Tags": [],
+  "Version": 0
+}

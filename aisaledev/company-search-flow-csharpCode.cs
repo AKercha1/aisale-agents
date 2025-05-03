@@ -1,6 +1,7 @@
 using System; 
 using System.Collections.Generic;
 using Newtonsoft.Json;
+using System.Text.RegularExpressions;
 
 class Agent 
 {
@@ -22,28 +23,19 @@ class Agent
             var searchResults = JsonConvert.DeserializeObject<List<SearchResult>>(googleSearchToolResult);
             foreach (var searchResult in searchResults)
             {
-                
-                ResponseAccessor.AddDebugMessage("Agent", "Debug", searchResult.Url);
+                var uri = new Uri(searchResult.Url);            
+                string[] parts = uri.Host.Split('.');
+                string baseDomain = parts.Length >= 2
+                    ? string.Join(".", parts[^2], parts[^1])
+                    : uri.Host;
+                string domainPattern = @$"^https?:\/\/([a-zA-Z0-9\-]+\.)*{Regex.Escape(baseDomain)}(?=\/|:|$)";
+                ResponseAccessor.AddDebugMessage("Agent", "Debug", searchResult.Url + " " + domainPattern);
+
+                var crawlerToolResult = ExecuteAgent("crawler-tool", new List<string> { searchResult.Url, domainPattern });
+                ResponseAccessor.AddDebugMessage("Agent", "Debug", crawlerToolResult);
+                return "";
             }
         }
-/*
-        // Step 4: Prepare to insert results into the database
-        for (int i = 0; i < queries.Count; i++)
-        {
-            // Count the number of results obtained
-            int resultCount = searchResults[i].Length; // Assuming the result is a string; adjust as needed
-
-            // Construct SQL query to insert into the database
-            string sqlQuery = $@"
-            INSERT INTO public.search_query_log (search_engine, query_text, search_count, result_count, result)
-            VALUES ('Google', '{queries[i]}', {resultCount}, {resultCount}, '{JsonConvert.SerializeObject(searchResults[i])}');
-            ";
-
-            // Execute the SQL query
-            ExecuteAgent("sql-execute", new List<string> { sqlQuery });
-        }
-*/
-        // Final result is an empty string as per the requirement
         return "";
     }
 }
