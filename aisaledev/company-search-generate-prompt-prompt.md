@@ -12,7 +12,7 @@ Strict requirements for queries:
 - Prefer authoritative and relevant sources where appropriate, such as clutch.co, inc.com, businessinsider.com, forbes.com, industrytoday.com, etc.
 - Avoid unrealistic, vague, or overly generic queries.
 - Queries must be diverse and not mere rewordings of each other.
-- Use practical search operator techniques (such as `site:`, `intitle:`, etc.) when relevant.
+- Do not use practical search operator techniques (such as `site:`, `intitle:`, etc.) when relevant.
 - Queries must be practical to execute on {{parameter5}} without requiring special accounts or settings.
 - Queries must be complicated. It should contain at least 10 words
 

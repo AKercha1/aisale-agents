@@ -8,7 +8,7 @@
     "top_p": {
       "Name": "Top P",
       "Code": "top_p",
-      "Value": "0.8"
+      "Value": "0.9"
     },
     "prompt": {
       "Name": "Prompt",
@@ -32,9 +32,9 @@
       "Value": "false"
     },
     "temperature": {
-      "Name": "",
+      "Name": "Temperature",
       "Code": "temperature",
-      "Value": "0.5"
+      "Value": "0.7"
     },
     "enabledAgents": {
       "Name": "",
