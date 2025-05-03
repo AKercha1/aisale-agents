@@ -5,7 +5,7 @@ import json  # Importing the json module to parse JSON strings
 area = Parameters["parameter1"]
 
 # Step 1: Generate query strings for searching
-queries_json = ExecuteAgent("company-search-generate-prompt", ["3", "USA", area, "50-500", "Google"])
+queries_json = ExecuteAgent("company-search-generate-prompt", ["2", "USA", area, "50-500", "Google"])
 
 # Step 2: Parse the JSON string to extract the queries
 queries = json.loads(queries_json)["queries"]  # Parsing the JSON to get the list of queries
