@@ -1,0 +1,42 @@
+{
+  "IsEnabled": true,
+  "Name": "find-companies-prompt",
+  "Description": "find-companies-prompt",
+  "LlmType": "3",
+  "Type": "Prompt",
+  "Content": {
+    "top_p": {
+      "Name": "Top P",
+      "Code": "top_p",
+      "Value": "0.5"
+    },
+    "prompt": {
+      "Name": "Prompt",
+      "Code": "prompt",
+      "Value": "find-companies-prompt-prompt.md",
+      "Extension": "md"
+    },
+    "outputType": {
+      "Name": "OutputType",
+      "Code": "outputType",
+      "Value": "text"
+    },
+    "strictMode": {
+      "Name": "Strict Mode",
+      "Code": "strictMode",
+      "Value": "true"
+    },
+    "temperature": {
+      "Name": "Temperature",
+      "Code": "temperature",
+      "Value": "0.5"
+    },
+    "outputDescription": {
+      "Name": "Output Description",
+      "Code": "outputDescription",
+      "Value": "Companies List"
+    }
+  },
+  "Tags": [],
+  "Version": 0
+}
