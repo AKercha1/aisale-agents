@@ -34,6 +34,9 @@ class Agent
                 ResponseAccessor.AddDebugMessage("Agent", "Debug", searchResult.Url + " " + domainPattern);
 
                 var crawlerToolResult = ExecuteAgent("crawler-tool", new List<string> { searchResult.Url, domainPattern });
+
+                //var crawlerToolResult = ExecuteAgent("list-companies-prompt", new List<string> { pageText });
+                
                 ResponseAccessor.AddDebugMessage("Agent", "Debug", crawlerToolResult);
                 return "";
             }
@@ -46,4 +49,9 @@ class SearchResult
 {
     public string Url { get; set; }
     public string Text { get; set; }
+}
+
+class CompaniesResult
+{
+    public List<string> Companies { get; set; }
 }
