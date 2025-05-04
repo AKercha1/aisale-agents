@@ -35,6 +35,11 @@
       "Name": "Output Description",
       "Code": "outputDescription",
       "Value": "Companies List"
+    },
+    "parameterDescription": {
+      "Name": "Parameters Description",
+      "Code": "parameterDescription",
+      "Value": "Text"
     }
   },
   "Tags": [],
