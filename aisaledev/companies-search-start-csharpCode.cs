@@ -13,12 +13,14 @@ class Agent
     {
         var companySearchGuid = Parameters["parameter1"]; 
         var queryString = Parameters["parameter2"]; 
+        var searchStringCount = Parameters["parameter3"]; 
         var user = RequestAccessor.Login;
         
 
-        var queriesJson = ExecuteAgent("companies-search-queries-prompt", new List<string> { queryString });
+        var queriesJson = ExecuteAgent("companies-search-queries-prompt", new List<string> { queryString, searchStringCount });
         var searchQueries = JsonConvert.DeserializeObject<Dictionary<string, List<string>>>(queriesJson)["queries"];
         var companySearchData = new CompanySearchData {
+            QueryString = queryString,
             SearchQueries = searchQueries,
         };
 
