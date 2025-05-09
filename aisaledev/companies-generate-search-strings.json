@@ -1,14 +1,14 @@
 {
   "IsEnabled": true,
-  "Name": "companies-search-get",
-  "Description": "companies-search-get",
+  "Name": "companies-generate-search-strings",
+  "Description": "companies-generate-search-strings",
   "LlmType": null,
   "Type": "CsharpCode",
   "Content": {
     "csharpCode": {
       "Name": "C# Code",
       "Code": "csharpCode",
-      "Value": "companies-search-get-csharpCode.cs",
+      "Value": "companies-generate-search-strings-csharpCode.cs",
       "Extension": "cs"
     },
     "temperature": {
@@ -24,7 +24,7 @@
     "outputDescription": {
       "Name": "Output Description",
       "Code": "outputDescription",
-      "Value": "Search Details"
+      "Value": "-"
     },
     "useSettingsAgents": {
       "Name": "",
@@ -39,7 +39,7 @@
     "parameterDescription": {
       "Name": "Parameters Description",
       "Code": "parameterDescription",
-      "Value": "Search Id"
+      "Value": "Search Id,Query String,Search Strings Count"
     },
     "settingsOverallPrompt": {
       "Name": "",
