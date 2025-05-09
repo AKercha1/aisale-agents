@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Newtonsoft.Json;
 
 class Agent
 {
@@ -15,8 +16,6 @@ class Agent
         var queryString = Parameters["parameter2"]; 
         var searchStringCount = Parameters["parameter3"]; 
         var user = RequestAccessor.Login;
-        
-
         var queriesJson = ExecuteAgent("companies-search-queries-prompt", new List<string> { queryString, searchStringCount });
         var searchQueries = JsonConvert.DeserializeObject<Dictionary<string, List<string>>>(queriesJson)["queries"];
         var companySearchData = new CompanySearchData {
@@ -24,9 +23,10 @@ class Agent
             SearchQueries = searchQueries,
         };
 
-        string sqlInsertQuery = $@"
+        var companySearchDataJson = JsonConvert.SerializeObject(companySearchData);
+        var sqlInsertQuery = $@"
             INSERT INTO public.company_search (company_search_guid, executed_by, state, company_search_data, last_message)
-            VALUES ('{companySearchGuid}', '{user}', 'new', '{{}}', 'Starting..')";
+            VALUES ('{companySearchGuid}', '{user}', 'new', '{companySearchDataJson}', 'Starting..')";
         
         var sqlResult = ExecuteAgent("sql-execute", new List<string> { sqlInsertQuery });
         
