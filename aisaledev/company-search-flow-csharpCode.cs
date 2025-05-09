@@ -42,7 +42,7 @@ class Agent
                 {
                     var companiesJson = ExecuteAgent("list-companies-prompt", new List<string> { crawlerToolResult.Text });
                     ResponseAccessor.AddDebugMessage("Agent", "Companies", companiesJson);
-                    var companies = JsonConvert.DeserializeObject<List<string>>(companiesJson);
+                    var companies = JsonConvert.DeserializeObject<CompaniesResult>(companiesJson);
                 }
                 
                 return "";
