@@ -12,10 +12,15 @@ class Agent
         Func<string, string, int, string> SetCacheValue)
     {
         var companySearchGuid = Parameters["parameter1"]; 
+        var queryString = Parameters["parameter2"]; 
         var user = RequestAccessor.Login;
         
-        var companySearchData = new CompanySearchData();
 
+        var queriesJson = ExecuteAgent("companies-search-queries-prompt", new List<string> { queryString });
+        var searchQueries = JsonConvert.DeserializeObject<Dictionary<string, List<string>>>(queriesJson)["queries"];
+        var companySearchData = new CompanySearchData {
+            SearchQueries = searchQueries,
+        };
 
         string sqlInsertQuery = $@"
             INSERT INTO public.company_search (company_search_guid, executed_by, state, company_search_data, last_message)
@@ -29,6 +34,6 @@ class Agent
 
 class CompanySearchData
 {
+    public string QueryString { get; set; } = "";
     public List<string> SearchQueries { get; set; } = new List<string>();
-
 }
