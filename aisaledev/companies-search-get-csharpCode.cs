@@ -15,12 +15,14 @@ class Agent
         var companySearchGuid = Parameters["parameter1"]; 
         var sqlSelectQuery = $@"select * from public.company_search where company_search_guid = '{companySearchGuid}' limit 1";
         var sqlResult = ExecuteAgent("sql-execute", new List<string> { sqlSelectQuery });
+        
         var parsedResult = JsonConvert.DeserializeObject<List<Dictionary<string, object>>>(sqlResult);
+        
         if (parsedResult != null && parsedResult.Count > 0)
         {
             var firstResult = parsedResult[0];
-            return JsonConvert.SerializeObject(new List<Dictionary<string, object>> { firstResult });
+            return JsonConvert.SerializeObject(firstResult);
         }        
-        return JsonConvert.SerializeObject(new List<Dictionary<string, object>>());
+        return JsonConvert.SerializeObject(new Dictionary<string, object>());
     }
 }
