@@ -22,7 +22,7 @@ class Agent
                 executed_at = '{companiesSearch.executed_at}',
                 executed_by = '{companiesSearch.executed_by}',
                 state = '{companiesSearch.state}',
-                company_search_data = '{JsonConvert.SerializeObject(companiesSearch.company_search_data)}',
+                company_search_data = '{companiesSearch.company_search_data}',
                 last_message = '{companiesSearch.last_message}'
             WHERE company_search_guid = '{companiesSearch.company_search_guid}'";
 
@@ -38,13 +38,6 @@ class CompanySearchItem
     public DateTime executed_at { get; set; }
     public string executed_by { get; set; }
     public string state { get; set; }
-    public CompanySearchData company_search_data { get; set; }
+    public string company_search_data { get; set; }
     public string last_message { get; set; }
-}
-
-class CompanySearchData
-{
-    public string QueryString { get; set; } = "";
-    public int? SearchDepth { get; set; }
-    public List<string> SearchQueries { get; set; } = new List<string>();
 }
