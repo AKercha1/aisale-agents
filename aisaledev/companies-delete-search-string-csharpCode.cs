@@ -14,11 +14,16 @@ class Agent
         var companySearchGuid = Parameters["parameter1"]; 
         var queryString = Parameters["parameter2"]; 
 
-        var sqlUpdateQuery = $@"
-            update public.company_search set company_search_data = '{companySearchDataJson}' where company_search_guid = '{companySearchGuid}'";
+        var sqlUpdateQuery = $@"update public.company_search set company_search_data = '{companySearchDataJson}' where company_search_guid = '{companySearchGuid}'";
         
         var sqlResult = ExecuteAgent("sql-execute", new List<string> { sqlUpdateQuery });
 
         return ExecuteAgent("companies-search-get", new List<string> { companySearchGuid });
     }
+}
+
+class CompanySearchData
+{
+    public string QueryString { get; set; } = "";
+    public List<string> SearchQueries { get; set; } = new List<string>();
 }
