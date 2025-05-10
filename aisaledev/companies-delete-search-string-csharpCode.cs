@@ -16,15 +16,18 @@ class Agent
         string companySearchGuid = Parameters["parameter1"];
         string queryString = Parameters["parameter2"];
 
-        var searchDataResult = ExecuteAgent("companies-search-get", new List<string> { companySearchGuid });
-        var companySearchItem = JsonConvert.DeserializeObject<CompanySearchItem>(searchDataResult);
-        if (companySearchItem.company_search_data.SearchQueries != null)
+        var searchItemResult = ExecuteAgent("companies-search-get", new List<string> { companySearchGuid });
+        var companySearchItem = JsonConvert.DeserializeObject<CompanySearchItem>(searchItemResult);
+        var companySearchData = JsonConvert.DeserializeObject<CompanySearchData>(companySearchItem.company_search_data);
+        if (companySearchData.SearchQueries != null)
         {
-            companySearchItem.company_search_data.SearchQueries.Remove(queryString);
+            companySearchData.SearchQueries.Remove(queryString);
         }
-        var updatedSearchDataJson = JsonConvert.SerializeObject(companySearchItem);
-        ExecuteAgent("companies-search-set", new List<string> { updatedSearchDataJson });
-        return updatedSearchDataJson;
+        var updatedSearchDataJson = JsonConvert.SerializeObject(companySearchData);
+        companySearchItem.company_search_data = updatedSearchDataJson;
+        var updatedSearchItemJson = JsonConvert.SerializeObject(companySearchItem);
+        ExecuteAgent("companies-search-set", new List<string> { updatedSearchItemJson });
+        return updatedSearchItemJson;
     }
 }
 
@@ -35,7 +38,7 @@ class CompanySearchItem
     public DateTime executed_at { get; set; }
     public string executed_by { get; set; }
     public string state { get; set; }
-    public CompanySearchData company_search_data  { get; set; }
+    public string company_search_data  { get; set; }
     public string last_message { get; set; }
 }
 

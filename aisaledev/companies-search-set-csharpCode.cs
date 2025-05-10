@@ -27,7 +27,6 @@ class Agent
             WHERE company_search_guid = '{companiesSearch.company_search_guid}'";
 
         var sqlResult = ExecuteAgent("sql-execute", new List<string> { sqlUpdateQuery });
-
         return sqlResult;
     }
 }
