@@ -17,15 +17,14 @@ class Agent
         string queryString = Parameters["parameter2"];
 
         var searchDataResult = ExecuteAgent("companies-search-get", new List<string> { companySearchGuid });
-        var companySearchData = JsonConvert.DeserializeObject<CompanySearchData>(searchDataResult);
-        if (companySearchData.SearchQueries != null)
+        var companySearchItem = JsonConvert.DeserializeObject<CompanySearchItem>(searchDataResult);
+        if (companySearchItem.company_search_data.SearchQueries != null)
         {
-            companySearchData.SearchQueries.Remove(queryString);
+            companySearchItem.company_search_data.SearchQueries.Remove(queryString);
         }
         var updatedSearchDataJson = JsonConvert.SerializeObject(companySearchData);
-        var sqlUpdateQuery = $@"UPDATE public.company_search SET company_search_data = '{updatedSearchDataJson}' WHERE company_search_guid = '{companySearchGuid}'";
-        ExecuteAgent("sql-execute", new List<string> { sqlUpdateQuery });
-        return ExecuteAgent("companies-search-get", new List<string> { companySearchGuid });
+        ExecuteAgent("companies-search-set", new List<string> { updatedSearchDataJson });
+        return updatedSearchDataJson;
     }
 }
 
