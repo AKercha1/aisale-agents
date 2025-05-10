@@ -22,7 +22,7 @@ class Agent
         {
             companySearchItem.company_search_data.SearchQueries.Remove(queryString);
         }
-        var updatedSearchDataJson = JsonConvert.SerializeObject(companySearchData);
+        var updatedSearchDataJson = JsonConvert.SerializeObject(companySearchItem);
         ExecuteAgent("companies-search-set", new List<string> { updatedSearchDataJson });
         return updatedSearchDataJson;
     }
