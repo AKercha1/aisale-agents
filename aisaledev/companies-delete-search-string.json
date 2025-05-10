@@ -1,0 +1,27 @@
+{
+  "IsEnabled": true,
+  "Name": "companies-delete-search-string",
+  "Description": "companies-delete-search-string",
+  "LlmType": null,
+  "Type": "CsharpCode",
+  "Content": {
+    "csharpCode": {
+      "Name": "C# Code",
+      "Code": "csharpCode",
+      "Value": "companies-delete-search-string-csharpCode.cs",
+      "Extension": "cs"
+    },
+    "outputDescription": {
+      "Name": "Output Description",
+      "Code": "outputDescription",
+      "Value": "-"
+    },
+    "parameterDescription": {
+      "Name": "Parameters Description",
+      "Code": "parameterDescription",
+      "Value": "Search Id,Search String"
+    }
+  },
+  "Tags": [],
+  "Version": 0
+}

@@ -16,13 +16,13 @@ class Agent
         var sqlSelectQuery = $@"select * from public.company_search where company_search_guid = '{companySearchGuid}' limit 1";
         var sqlResult = ExecuteAgent("sql-execute", new List<string> { sqlSelectQuery });
         
-        var parsedResult = JsonConvert.DeserializeObject<List<object>>(sqlResult);
+        var parsedResult = JsonConvert.DeserializeObject<List<List<object>>>(sqlResult);
         
-        if (parsedResult != null && parsedResult.Count > 0)
+        if (parsedResult != null && parsedResult.Count > 0 && parsedResult[0].Count > 0)
         {
-            var firstResult = parsedResult[0];
+            var firstResult = parsedResult[0][0];
             return JsonConvert.SerializeObject(firstResult);
         }        
-        return "Incorrect companySearchGuid"
+        return "Incorrect companySearchGuid";
     }
 }
