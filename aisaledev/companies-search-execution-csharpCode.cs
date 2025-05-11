@@ -49,7 +49,7 @@ class Agent
                     Save(companySearchItem, companySearchData, ExecuteAgent);
                     var companiesResultsJson = ExecuteAgent("companies-search-execution-crawler-prompt", new List<string> { crawlerResult.url, companySearchData.QueryString });
                     var companiesResults = JsonConvert.DeserializeObject<CompanySearchData>(companiesResultsJson);
-                    foreach(var company is companiesResults.Companies)
+                    foreach(var company in companiesResults.Companies)
                     {
                         if(companySearchData.Companies.FirstOrDefault(x => x.name == company.name))
                             continue;
