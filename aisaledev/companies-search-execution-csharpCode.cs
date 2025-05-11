@@ -26,8 +26,12 @@ class Agent
             n++;
             companySearchItem.last_message = $"[{n}/{searchQueriesCount}] Searching '{searchQuery}'";
             Save(companySearchItem, companySearchData, ExecuteAgent);
-            var searchResults = ExecuteAgent("companies-search-execution-google", new List<string> { searchQuery });
+            var searchResultsJson = ExecuteAgent("companies-search-execution-google", new List<string> { searchQuery });
+            var searchResults = JsonConvert.DeserializeObject<List<SearchResult>>(searchResultsJson);
+            foreach (var searchResult in searchResults)
+            {
 
+            }
         }
         return searchItemResult;
     }
@@ -39,6 +43,12 @@ class Agent
         var updatedSearchItemJson = JsonConvert.SerializeObject(companySearchItem);
         ExecuteAgent("companies-search-set", new List<string> { updatedSearchItemJson });
     }
+}
+
+class SearchResult
+{
+    public string url { get; set; }
+    public string text { get; set; }
 }
 
 class CompanySearchItem
