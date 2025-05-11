@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using Newtonsoft.Json;
 using System.Text.RegularExpressions;
+using System.Linq;
 
 class Agent
 {
@@ -51,7 +52,8 @@ class Agent
                     var companiesResults = JsonConvert.DeserializeObject<CompanySearchData>(companiesResultsJson);
                     foreach(var company in companiesResults.Companies)
                     {
-                        if(companySearchData.Companies.FirstOrDefault(x => x.name == company.name))
+                        // Check if the company already exists in the list
+                        if(companySearchData.Companies.FirstOrDefault(x => x.name == company.name) != null)
                             continue;
                         company.id = companiesCount;
                         companiesCount++;

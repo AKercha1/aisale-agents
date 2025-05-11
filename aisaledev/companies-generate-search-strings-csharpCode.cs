@@ -16,6 +16,11 @@ class Agent
         var queryString = Parameters["parameter2"]; 
         var searchStringCount = Parameters["parameter3"]; 
         var user = RequestAccessor.Login;
+        
+        var existingCompanySearch = ExecuteAgent("companies-search-get", new List<string> { companySearchGuid });
+        if (existingCompanySearch != "Incorrect companySearchGuid")
+            return existingCompanySearch;
+
         var queriesJson = ExecuteAgent("companies-search-queries-prompt", new List<string> { queryString, searchStringCount });
         var searchQueries = JsonConvert.DeserializeObject<Dictionary<string, List<string>>>(queriesJson)["queries"];
         var companySearchData = new CompanySearchData {
@@ -26,7 +31,7 @@ class Agent
         var companySearchDataJson = JsonConvert.SerializeObject(companySearchData);
         var sqlInsertQuery = $@"
             INSERT INTO public.company_search (company_search_guid, executed_by, state, company_search_data, last_message)
-            VALUES ('{companySearchGuid}', '{user}', 'new', '{companySearchDataJson}', 'Starting..')";
+            VALUES ('{companySearchGuid}', '{user}', 'new', '{companySearchDataJson}', 'Search ID: {companySearchGuid}')";
         
         var sqlResult = ExecuteAgent("sql-execute", new List<string> { sqlInsertQuery });
         
