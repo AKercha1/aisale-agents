@@ -1,0 +1,52 @@
+{
+  "IsEnabled": true,
+  "Name": "companies-search-execution-crawler-prompt",
+  "Description": "companies-search-execution-crawler-prompt",
+  "LlmType": "3",
+  "Type": "Prompt",
+  "Content": {
+    "top_p": {
+      "Name": "Top P",
+      "Code": "top_p",
+      "Value": "0.7"
+    },
+    "prompt": {
+      "Name": "Prompt",
+      "Code": "prompt",
+      "Value": "companies-search-execution-crawler-prompt-prompt.md",
+      "Extension": "md"
+    },
+    "jsonSchema": {
+      "Name": "JSON Schema",
+      "Code": "jsonSchema",
+      "Value": "{\r\n  \"$schema\": \"http://json-schema.org/draft-07/schema#\",\r\n  \"type\": \"object\",\r\n  \"properties\": {\r\n    \"companies\": {\r\n      \"type\": \"array\",\r\n      \"items\": {\r\n        \"type\": \"object\",\r\n        \"properties\": {\r\n          \"name\": {\r\n            \"type\": \"string\"\r\n          },\r\n          \"url\": {\r\n            \"type\": \"string\",\r\n            \"format\": \"uri\"\r\n          },\r\n          \"details\": {\r\n            \"type\": \"string\"\r\n          }\r\n        },\r\n        \"required\": [\"name\", \"url\", \"details\"]\r\n      }\r\n    }\r\n  },\r\n  \"required\": [\"companies\"]\r\n}\r\n"
+    },
+    "outputType": {
+      "Name": "OutputType",
+      "Code": "outputType",
+      "Value": "json"
+    },
+    "strictMode": {
+      "Name": "Strict Mode",
+      "Code": "strictMode",
+      "Value": "false"
+    },
+    "temperature": {
+      "Name": "Temperature",
+      "Code": "temperature",
+      "Value": "0.5"
+    },
+    "outputDescription": {
+      "Name": "Output Description",
+      "Code": "outputDescription",
+      "Value": "Companies List (JSON)"
+    },
+    "parameterDescription": {
+      "Name": "Parameters Description",
+      "Code": "parameterDescription",
+      "Value": "Text,Users Request"
+    }
+  },
+  "Tags": [],
+  "Version": 0
+}

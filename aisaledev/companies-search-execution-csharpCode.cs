@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Newtonsoft.Json;
+using System.Text.RegularExpressions;
 
 class Agent
 {
@@ -20,18 +21,32 @@ class Agent
         var companySearchItem = JsonConvert.DeserializeObject<CompanySearchItem>(searchItemResult);
         var companySearchData = JsonConvert.DeserializeObject<CompanySearchData>(companySearchItem.company_search_data);
         var searchQueriesCount = companySearchData.SearchQueries.Count;
-        var n = 0;
+        var searchQueriesN = 0;
         foreach (var searchQuery in companySearchData.SearchQueries)
         {
-            n++;
-            companySearchItem.last_message = $"[{n}/{searchQueriesCount}] Searching '{searchQuery}'";
+            searchQueriesN++;
+            companySearchItem.last_message = $"[{searchQueriesN}/{searchQueriesCount}] Searching '{searchQuery}'";
             Save(companySearchItem, companySearchData, ExecuteAgent);
             var searchResultsJson = ExecuteAgent("companies-search-execution-google", new List<string> { searchQuery });
             var searchResults = JsonConvert.DeserializeObject<List<SearchResult>>(searchResultsJson);
+            var searchResultsN = 0;
             foreach (var searchResult in searchResults)
             {
-                var regEx = GetUrlRegEx(searchResult.url);
-                
+                searchResultsN++;
+                companySearchItem.last_message = $"[{searchQueriesN}/{searchQueriesCount}][{searchResultsN}/{searchResults.Count}] Crawling {searchResult.url} ({searchResult.Text})'";
+                Save(companySearchItem, companySearchData, ExecuteAgent);
+                var urlRegEx = GetUrlRegEx(searchResult.url);
+                var crawlerResultsJson = ExecuteAgent("companies-search-execution-crawler", new List<string> { searchResult.url, urlRegEx });
+                var crawlerResults = JsonConvert.DeserializeObject<List<CrawlerResult>>(crawlerResultsJson);
+                var crawlerResultsN = 0;
+                foreach (var crawlerResult in crawlerResults)
+                {
+                    crawlerResultsN++;
+                    companySearchItem.last_message = $"[{searchQueriesN}/{searchQueriesCount}][{searchResultsN}/{searchResults.Count}][{crawlerResultsN}/{crawlerResults.Count}] "
+                        + $"Extracting Companies {crawlerResult.url}'";
+                    Save(companySearchItem, companySearchData, ExecuteAgent);
+                    var crawlerResultsJson = ExecuteAgent("companies-search-execution-crawler-prompt", new List<string> { crawlerResult.url, companySearchData.QueryString });
+                }                
             }
         }
         return searchItemResult;
@@ -54,6 +69,12 @@ class Agent
             : uri.Host;
         return @$"^https?:\/\/([a-zA-Z0-9\-]+\.)*{Regex.Escape(baseDomain)}(?=\/|:|$)";
     }
+}
+
+class CrawlerResult
+{
+    public string url { get; set; }
+    public string text { get; set; }
 }
 
 class SearchResult
