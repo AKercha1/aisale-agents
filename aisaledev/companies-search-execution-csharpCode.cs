@@ -20,12 +20,13 @@ class Agent
         var searchItemResult = ExecuteAgent("companies-search-get", new List<string> { companySearchGuid });
         var companySearchItem = JsonConvert.DeserializeObject<CompanySearchItem>(searchItemResult);
         var companySearchData = JsonConvert.DeserializeObject<CompanySearchData>(companySearchItem.company_search_data);
+        companySearchData.SearchDepth = searchDepth;
         var searchQueriesCount = companySearchData.SearchQueries.Count;
         var searchQueriesN = 0;
         foreach (var searchQuery in companySearchData.SearchQueries)
         {
             searchQueriesN++;
-            companySearchItem.last_message = $"[{searchQueriesN}/{searchQueriesCount}] Searching '{searchQuery}'";
+            companySearchItem.last_message = $"[{searchQueriesN}/{searchQueriesCount}] Searching {searchQuery}";
             Save(companySearchItem, companySearchData, ExecuteAgent);
             var searchResultsJson = ExecuteAgent("companies-search-execution-google", new List<string> { searchQuery });
             var searchResults = JsonConvert.DeserializeObject<List<SearchResult>>(searchResultsJson);
@@ -33,7 +34,7 @@ class Agent
             foreach (var searchResult in searchResults)
             {
                 searchResultsN++;
-                companySearchItem.last_message = $"[{searchQueriesN}/{searchQueriesCount}][{searchResultsN}/{searchResults.Count}] Crawling {searchResult.url} ({searchResult.Text})'";
+                companySearchItem.last_message = $"[{searchQueriesN}/{searchQueriesCount}][{searchResultsN}/{searchResults.Count}] Crawling {searchResult.url} ({searchResult.text})";
                 Save(companySearchItem, companySearchData, ExecuteAgent);
                 var urlRegEx = GetUrlRegEx(searchResult.url);
                 var crawlerResultsJson = ExecuteAgent("companies-search-execution-crawler", new List<string> { searchResult.url, urlRegEx });
@@ -43,9 +44,11 @@ class Agent
                 {
                     crawlerResultsN++;
                     companySearchItem.last_message = $"[{searchQueriesN}/{searchQueriesCount}][{searchResultsN}/{searchResults.Count}][{crawlerResultsN}/{crawlerResults.Count}] "
-                        + $"Extracting Companies {crawlerResult.url}'";
+                        + $"Extracting Companies {crawlerResult.url}";
                     Save(companySearchItem, companySearchData, ExecuteAgent);
-                    var crawlerResultsJson = ExecuteAgent("companies-search-execution-crawler-prompt", new List<string> { crawlerResult.url, companySearchData.QueryString });
+                    var companiesResultsJson = ExecuteAgent("companies-search-execution-crawler-prompt", new List<string> { crawlerResult.url, companySearchData.QueryString });
+                    var companiesResults = JsonConvert.DeserializeObject<CompanySearchData>(companiesResultsJson);
+                    companySearchData.Companies.AddRange(companiesResults.Companies);
                 }                
             }
         }
@@ -99,4 +102,12 @@ class CompanySearchData
     public string QueryString { get; set; } = "";
     public int? SearchDepth { get; set; }
     public List<string> SearchQueries { get; set; } = new List<string>();
+    public List<CompanyDetails> Companies { get; set; } = new List<CompanyDetails>();
+}
+
+class CompanyDetails
+{
+    public string name { get; set; } = "";
+    public string url { get; set; } = "";
+    public string details { get; set; } = "";
 }
