@@ -30,7 +30,8 @@ class Agent
             var searchResults = JsonConvert.DeserializeObject<List<SearchResult>>(searchResultsJson);
             foreach (var searchResult in searchResults)
             {
-
+                var regEx = GetUrlRegEx(searchResult.url);
+                
             }
         }
         return searchItemResult;
@@ -42,6 +43,16 @@ class Agent
         companySearchItem.company_search_data = updatedSearchDataJson;
         var updatedSearchItemJson = JsonConvert.SerializeObject(companySearchItem);
         ExecuteAgent("companies-search-set", new List<string> { updatedSearchItemJson });
+    }
+
+    private string GetUrlRegEx(string url)
+    {
+        var uri = new Uri(url);            
+        string[] parts = uri.Host.Split('.');
+        string baseDomain = parts.Length >= 2
+            ? string.Join(".", parts[^2], parts[^1])
+            : uri.Host;
+        return @$"^https?:\/\/([a-zA-Z0-9\-]+\.)*{Regex.Escape(baseDomain)}(?=\/|:|$)";
     }
 }
 
