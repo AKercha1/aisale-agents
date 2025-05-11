@@ -17,11 +17,13 @@ class Agent
     {
         var companySearchGuid = Parameters["parameter1"];
         var searchDepth = Convert.ToInt32(Parameters["parameter2"]);
+        var searchLimit = Convert.ToInt32(Parameters["parameter3"]);
 
         var searchItemResult = ExecuteAgent("companies-search-get", new List<string> { companySearchGuid });
         var companySearchItem = JsonConvert.DeserializeObject<CompanySearchItem>(searchItemResult);
         var companySearchData = JsonConvert.DeserializeObject<CompanySearchData>(companySearchItem.company_search_data);
         companySearchData.SearchDepth = searchDepth;
+        companySearchData.SearchLimit = searchLimit;
         var searchQueriesCount = companySearchData.SearchQueries.Count;
         var searchQueriesN = 0;
         var companiesCount = 1;
@@ -111,6 +113,7 @@ class CompanySearchData
 {
     public string QueryString { get; set; } = "";
     public int? SearchDepth { get; set; }
+    public int? SearchLimit { get; set; }
     public List<string> SearchQueries { get; set; } = new List<string>();
     public List<CompanyDetails> Companies { get; set; } = new List<CompanyDetails>();
 }
