@@ -1,0 +1,27 @@
+{
+  "IsEnabled": true,
+  "Name": "companies-search-execution",
+  "Description": "companies-search-execution",
+  "LlmType": null,
+  "Type": "CsharpCode",
+  "Content": {
+    "csharpCode": {
+      "Name": "C# Code",
+      "Code": "csharpCode",
+      "Value": "companies-search-execution-csharpCode.cs",
+      "Extension": "cs"
+    },
+    "outputDescription": {
+      "Name": "Output Description",
+      "Code": "outputDescription",
+      "Value": "-"
+    },
+    "parameterDescription": {
+      "Name": "Parameters Description",
+      "Code": "parameterDescription",
+      "Value": "Search Id,Search Depth"
+    }
+  },
+  "Tags": [],
+  "Version": 0
+}
