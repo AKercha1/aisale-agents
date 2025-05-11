@@ -1,0 +1,51 @@
+{
+  "IsEnabled": true,
+  "Name": "companies-search-execution-google",
+  "Description": "companies-search-execution-google",
+  "LlmType": null,
+  "Type": "GoogleSearchApi",
+  "Content": {
+    "count": {
+      "Name": "Responses Count",
+      "Code": "count",
+      "Value": "10"
+    },
+    "offset": {
+      "Name": "Responses Offset",
+      "Code": "offset",
+      "Value": "0"
+    },
+    "outputType": {
+      "Name": "Output Type",
+      "Code": "outputType",
+      "Value": "snippetJson"
+    },
+    "queryString": {
+      "Name": "Query String",
+      "Code": "queryString",
+      "Value": "{{parameter1}}"
+    },
+    "maxContentLength": {
+      "Name": "Max Content Length form Page",
+      "Code": "maxContentLength",
+      "Value": "16384"
+    },
+    "outputDescription": {
+      "Name": "Output Description",
+      "Code": "outputDescription",
+      "Value": "Query Results"
+    },
+    "parameterDescription": {
+      "Name": "Parameters Description",
+      "Code": "parameterDescription",
+      "Value": "Query String"
+    },
+    "googleSearchApiConnection": {
+      "Name": "Google Search API Connection Name",
+      "Code": "googleSearchApiConnection",
+      "Value": "google-search-connection"
+    }
+  },
+  "Tags": [],
+  "Version": 0
+}

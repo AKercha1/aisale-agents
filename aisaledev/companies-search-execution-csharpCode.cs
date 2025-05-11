@@ -24,8 +24,9 @@ class Agent
         foreach (var searchQuery in companySearchData.SearchQueries)
         {
             n++;
-            companySearchItem.last_message = $"[{n}/{searchQueriesCount}] Handling '{searchQuery}' "
+            companySearchItem.last_message = $"[{n}/{searchQueriesCount}] Searching '{searchQuery}'";
             Save(companySearchItem, companySearchData, ExecuteAgent);
+            var searchResults = ExecuteAgent("companies-search-execution-google", new List<string> { searchQuery });
 
         }
         return searchItemResult;
