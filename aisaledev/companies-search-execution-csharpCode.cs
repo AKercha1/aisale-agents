@@ -23,6 +23,7 @@ class Agent
         companySearchData.SearchDepth = searchDepth;
         var searchQueriesCount = companySearchData.SearchQueries.Count;
         var searchQueriesN = 0;
+        var companiesCount = 1;
         foreach (var searchQuery in companySearchData.SearchQueries)
         {
             searchQueriesN++;
@@ -48,7 +49,14 @@ class Agent
                     Save(companySearchItem, companySearchData, ExecuteAgent);
                     var companiesResultsJson = ExecuteAgent("companies-search-execution-crawler-prompt", new List<string> { crawlerResult.url, companySearchData.QueryString });
                     var companiesResults = JsonConvert.DeserializeObject<CompanySearchData>(companiesResultsJson);
-                    companySearchData.Companies.AddRange(companiesResults.Companies);
+                    foreach(var company is companiesResults.Companies)
+                    {
+                        if(companySearchData.Companies.FirstOrDefault(x => x.name == company.name))
+                            continue;
+                        company.id = companiesCount;
+                        companiesCount++;
+                        companySearchData.Companies.Add(company);
+                    }
                 }                
             }
         }
@@ -107,6 +115,7 @@ class CompanySearchData
 
 class CompanyDetails
 {
+    public int id { get; set; } = 1;
     public string name { get; set; } = "";
     public string url { get; set; } = "";
     public string details { get; set; } = "";

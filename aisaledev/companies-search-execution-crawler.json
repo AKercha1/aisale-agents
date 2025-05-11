@@ -23,7 +23,7 @@
     "maxUrlsCount": {
       "Name": "Max Urls Count",
       "Code": "maxUrlsCount",
-      "Value": "50"
+      "Value": "10"
     },
     "crawlUrlRegex": {
       "Name": "Crawl Url Regex",

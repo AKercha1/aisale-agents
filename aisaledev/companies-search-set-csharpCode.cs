@@ -22,8 +22,8 @@ class Agent
                 executed_at = '{companiesSearch.executed_at}',
                 executed_by = '{companiesSearch.executed_by}',
                 state = '{companiesSearch.state}',
-                company_search_data = '{companiesSearch.company_search_data}',
-                last_message = '{companiesSearch.last_message}'
+                company_search_data = '{companiesSearch.company_search_data.Replace("'","")}',
+                last_message = '{companiesSearch.last_message.Replace("'","")}'
             WHERE company_search_guid = '{companiesSearch.company_search_guid}'";
 
         var sqlResult = ExecuteAgent("sql-execute", new List<string> { sqlUpdateQuery });
