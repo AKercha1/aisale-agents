@@ -23,11 +23,13 @@ class Agent
                     url = '{companyItem.url.Replace("'", "")}',
                     details = '{companyItem.details.Replace("'", "")}',
                     created_by = '{companyItem.created_by.Replace("'", "")}',
-                    industry = '{companyItem.industry.Replace("'", "")}',
-
+                    industry = '{companyItem.industry?.Replace("'", "") ?? ""}',
+                    company_analyzed = {(companyItem.company_analyzed.HasValue ? (companyItem.company_analyzed.Value ? "true" : "false") : "false")},
+                    contacts_found = {(companyItem.contacts_found.HasValue ? (companyItem.contacts_found.Value ? "true" : "false") : "false")},
+                    ai_opportunities_generated = {(companyItem.ai_opportunities_generated.HasValue ? (companyItem.ai_opportunities_generated.Value ? "true" : "false") : "false")},
+                    proposal_generated = {(companyItem.proposal_generated.HasValue ? (companyItem.proposal_generated.Value ? "true" : "false") : "false")},
                     updated_at = now()
                 WHERE company_id = {companyItem.company_id};";
-            return sqlUpdateQuery;
             ExecuteAgent("sql-execute", new List<string> { sqlUpdateQuery });
         }
         return "OK";

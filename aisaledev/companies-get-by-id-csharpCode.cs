@@ -13,7 +13,8 @@ class Agent
         Func<string, string> GetCacheValue,
         Func<string, string, int, string> SetCacheValue)
     {
-        var sqlSelectQuery = @"select * from public.company";
+        string companyId = Convert.ToInt32(Parameters["parameter1"]); 
+        var sqlSelectQuery = $@"select * from public.company where company_id = {companyId}";
         var sqlSelectResult = ExecuteAgent("sql-execute", new List<string> { sqlSelectQuery });
         var parsedResult = JsonConvert.DeserializeObject<List<List<CompanyItem>>>(sqlSelectResult);
         if (parsedResult != null && parsedResult.Count > 0 && parsedResult[0].Count > 0)
