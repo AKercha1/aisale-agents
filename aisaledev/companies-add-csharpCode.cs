@@ -18,18 +18,18 @@ class Agent
         var user = RequestAccessor.Login;
         var companiesList = JsonConvert.DeserializeObject<List<CompaniesListItem>>(companiesListJson);
 
-        var sqlSelectQuery = $@"select name from public.companies";
-        var sqlResult = ExecuteAgent("sql-execute", new List<string> { sqlSelectQuery });
-        var namesList = JsonConvert.DeserializeObject<List<List<NameItem>>>(sqlResult)[0].Select(x => x.name.ToUpper());
+        var sqlSelectQuery = $@"select name from public.company";
+        var sqlSelectResult = ExecuteAgent("sql-execute", new List<string> { sqlSelectQuery });
+        var namesList = JsonConvert.DeserializeObject<List<List<NameItem>>>(sqlSelectResult)[0].Select(x => x.name.ToUpper());
         
         foreach(var companyItem in companiesList)
         {
             if(namesList.Contains(companyItem.name.ToUpper()))
                 continue;
             var sqlInsertQuery = $@"
-                INSERT INTO public.companies (source, source_id, created_by, name, url, details)
+                INSERT INTO public.company (source, source_id, created_by, name, url, details)
                 VALUES ('search', '{companySearchGuid}', '{user}', '{companyItem.name.Replace("'","")}', '{companyItem.url.Replace("'","")}', '{companyItem.details.Replace("'","")}')";            
-            var sqlResult = ExecuteAgent("sql-execute", new List<string> { sqlInsertQuery });
+            var sqlInsertResult = ExecuteAgent("sql-execute", new List<string> { sqlInsertQuery });
         }        
         return "";
     }
