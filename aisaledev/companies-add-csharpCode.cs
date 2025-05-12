@@ -1,5 +1,7 @@
 using System;
 using System.Collections.Generic;
+using Newtonsoft.Json;
+using System.Linq;
 
 class Agent
 {
@@ -13,10 +15,29 @@ class Agent
     {
         var companySearchGuid = Parameters["parameter1"];
         var companiesListJson = Parameters["parameter2"]; 
+        var user = RequestAccessor.Login;
         var companiesList = JsonConvert.DeserializeObject<List<CompaniesListItem>>(companiesListJson);
 
-        return "Hello World!";
+        var sqlSelectQuery = $@"select name from public.companies";
+        var sqlResult = ExecuteAgent("sql-execute", new List<string> { sqlSelectQuery });
+        var namesList = JsonConvert.DeserializeObject<List<List<NameItem>>>(sqlResult)[0].Select(x => x.name.ToUpper());
+        
+        foreach(var companyItem in companiesList)
+        {
+            if(namesList.Contains(companyItem.name.ToUpper()))
+                continue;
+            var sqlInsertQuery = $@"
+                INSERT INTO public.company (company_search_guid, created_by, name, url, details)
+                VALUES ('{companySearchGuid}', '{user}', '{companyItem.name.Replace("'","")}', '{companyItem.url.Replace("'","")}', '{companyItem.details.Replace("'","")}')";            
+            var sqlResult = ExecuteAgent("sql-execute", new List<string> { sqlInsertQuery });
+        }        
+        return "";
     }
+}
+
+class NameItem 
+{
+    public string name { get; set; }
 }
 
 class CompaniesListItem 
