@@ -54,7 +54,7 @@
     "settingsTaskDescription": {
       "Name": "",
       "Code": "settingsTaskDescription",
-      "Value": "## Common Instructions\n- Generate valid C# code.\n- Do not manually implement functionality that Available Agents can provide.\n- All descriptions must be incorporated as comments. Use descriptions only when needed."
+      "Value": "## Common Instructions\n- Generate valid C# code.\n- Do not manually implement functionality that Available Agents can provide.\n- All descriptions must be incorporated as comments. Use descriptions only when needed.\n- Do not add comments"
     },
     "useSettingsTaskDescription": {
       "Name": "",
