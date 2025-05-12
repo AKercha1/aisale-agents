@@ -13,14 +13,14 @@ class Agent
         Func<string, string> GetCacheValue,
         Func<string, string, int, string> SetCacheValue)
     {
-        var companySearchGuid = Parameters["parameter1"].Replace("'","");
+        var companySearchGuid = Parameters["parameter1"].Replace("'", "");
         var companiesListJson = Parameters["parameter2"]; 
-        var user = RequestAccessor.Login.Replace("'","");
+        var user = RequestAccessor.Login.Replace("'", "");
         var companiesList = JsonConvert.DeserializeObject<List<CompaniesListItem>>(companiesListJson);
 
-        var sqlSelectQuery = $@"select name from public.company";
+        var sqlSelectQuery = @"select name from public.company";
         var sqlSelectResult = ExecuteAgent("sql-execute", new List<string> { sqlSelectQuery });
-        var namesList = JsonConvert.DeserializeObject<List<List<NameItem>>>(sqlSelectResult)[0].Select(x => x.name.ToUpper());
+        var namesList = JsonConvert.DeserializeObject<List<NameItem>>(sqlSelectResult).Select(x => x.name.ToUpper()).ToList();
         
         foreach(var companyItem in companiesList)
         {
@@ -28,10 +28,10 @@ class Agent
                 continue;
             var sqlInsertQuery = $@"
                 INSERT INTO public.company (source, source_id, created_by, name, url, details)
-                VALUES ('search', '{companySearchGuid}', '{user}', '{companyItem.name.Replace("'","")}', '{companyItem.url.Replace("'","")}', '{companyItem.details.Replace("'","")}')";            
+                VALUES ('search', '{companySearchGuid}', '{user}', '{companyItem.name.Replace("'", "")}', '{companyItem.url.Replace("'", "")}', '{companyItem.details.Replace("'", "")}')";
             var sqlInsertResult = ExecuteAgent("sql-execute", new List<string> { sqlInsertQuery });
         }        
-        return "";
+        return "Added.";
     }
 }
 
