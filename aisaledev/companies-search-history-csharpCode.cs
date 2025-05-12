@@ -12,7 +12,7 @@ class Agent
         Func<string, string> GetCacheValue,
         Func<string, string, int, string> SetCacheValue)
     {
-        var sqlSelectQuery = $@"select * from public.company_search";
+        var sqlSelectQuery = $@"select * from public.company_search order by 1";
         var sqlResult = ExecuteAgent("sql-execute", new List<string> { sqlSelectQuery });
         var parsedResult = JsonConvert.DeserializeObject<List<List<object>>>(sqlResult);
         var firstResult = parsedResult[0];

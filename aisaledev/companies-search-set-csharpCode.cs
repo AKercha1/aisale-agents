@@ -20,8 +20,8 @@ class Agent
             UPDATE public.company_search
             SET 
                 executed_at = '{companiesSearch.executed_at}',
-                executed_by = '{companiesSearch.executed_by}',
-                state = '{companiesSearch.state}',
+                executed_by = '{companiesSearch.executed_by.Replace("'","")}',
+                state = '{companiesSearch.state.Replace("'","")}',
                 company_search_data = '{companiesSearch.company_search_data.Replace("'","")}',
                 last_message = '{companiesSearch.last_message.Replace("'","")}',
                 log = '{companiesSearch.log.Replace("'","")}'
