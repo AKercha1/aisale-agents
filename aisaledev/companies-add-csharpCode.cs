@@ -13,9 +13,9 @@ class Agent
         Func<string, string> GetCacheValue,
         Func<string, string, int, string> SetCacheValue)
     {
-        var companySearchGuid = Parameters["parameter1"];
+        var companySearchGuid = Parameters["parameter1"].Replace("'","");
         var companiesListJson = Parameters["parameter2"]; 
-        var user = RequestAccessor.Login;
+        var user = RequestAccessor.Login.Replace("'","");
         var companiesList = JsonConvert.DeserializeObject<List<CompaniesListItem>>(companiesListJson);
 
         var sqlSelectQuery = $@"select name from public.company";
@@ -28,7 +28,7 @@ class Agent
                 continue;
             var sqlInsertQuery = $@"
                 INSERT INTO public.company (source, source_id, created_by, name, url, details)
-                VALUES ('search', '{companySearchGuid.Replace("'","")}', '{user.Replace("'","")}', '{companyItem.name.Replace("'","")}', '{companyItem.url.Replace("'","")}', '{companyItem.details.Replace("'","")}')";            
+                VALUES ('search', '{companySearchGuid}', '{user}', '{companyItem.name.Replace("'","")}', '{companyItem.url.Replace("'","")}', '{companyItem.details.Replace("'","")}')";            
             var sqlInsertResult = ExecuteAgent("sql-execute", new List<string> { sqlInsertQuery });
         }        
         return "";
