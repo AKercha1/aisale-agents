@@ -13,36 +13,19 @@ class Agent
         Func<string, string> GetCacheValue,
         Func<string, string, int, string> SetCacheValue)
     {
-        var companySearchGuid = Parameters["parameter1"].Replace("'", "");
-        var companiesListJson = Parameters["parameter2"]; 
-        var user = RequestAccessor.Login.Replace("'", "");
-        var companiesList = JsonConvert.DeserializeObject<List<CompaniesListItem>>(companiesListJson);
-
         var sqlSelectQuery = @"select name from public.company";
         var sqlSelectResult = ExecuteAgent("sql-execute", new List<string> { sqlSelectQuery });
-        var namesList = JsonConvert.DeserializeObject<List<NameItem>>(sqlSelectResult).Select(x => x.name.ToUpper()).ToList();
-        
-        foreach(var companyItem in companiesList)
+        var parsedResult = JsonConvert.DeserializeObject<List<List<NameItem>>>(sqlSelectResult);
+        if (parsedResult != null && parsedResult.Count > 0)
         {
-            if(namesList.Contains(companyItem.name.ToUpper()))
-                continue;
-            var sqlInsertQuery = $@"
-                INSERT INTO public.company (source, source_id, created_by, name, url, details)
-                VALUES ('search', '{companySearchGuid}', '{user}', '{companyItem.name.Replace("'", "")}', '{companyItem.url.Replace("'", "")}', '{companyItem.details.Replace("'", "")}')";
-            var sqlInsertResult = ExecuteAgent("sql-execute", new List<string> { sqlInsertQuery });
+            var firstResult = parsedResult[0].Select(x => x.name).ToList();
+            return JsonConvert.SerializeObject(firstResult);
         }        
-        return "OK";
+        return "Error";
     }
 }
 
 class NameItem 
 {
     public string name { get; set; }
-}
-
-class CompaniesListItem 
-{
-    public string name { get; set; }
-    public string url { get; set; }
-    public string details { get; set; }
 }

@@ -18,13 +18,12 @@ class Agent
         var user = RequestAccessor.Login.Replace("'", "");
         var companiesList = JsonConvert.DeserializeObject<List<CompaniesListItem>>(companiesListJson);
 
-        var sqlSelectQuery = @"select name from public.company";
-        var sqlSelectResult = ExecuteAgent("sql-execute", new List<string> { sqlSelectQuery });
-        var namesList = JsonConvert.DeserializeObject<List<NameItem>>(sqlSelectResult).Select(x => x.name.ToUpper()).ToList();
+        var companyNamesJson = ExecuteAgent("companies-get-names", new List<string> { });
+        var companyNamesList = JsonConvert.DeserializeObject<List<string>>(companyNamesJson);
         
         foreach(var companyItem in companiesList)
         {
-            if(namesList.Contains(companyItem.name.ToUpper()))
+            if(companyNamesList.Contains(companyItem.name.ToUpper()))
                 continue;
             var sqlInsertQuery = $@"
                 INSERT INTO public.company (source, source_id, created_by, name, url, details)
