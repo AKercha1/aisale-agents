@@ -28,7 +28,7 @@ class Agent
                 continue;
             var sqlInsertQuery = $@"
                 INSERT INTO public.company (source, source_id, created_by, name, url, details)
-                VALUES ('search', '{companySearchGuid}', '{user}', '{companyItem.name.Replace("'","")}', '{companyItem.url.Replace("'","")}', '{companyItem.details.Replace("'","")}')";            
+                VALUES ('search', '{companySearchGuid.Replace("'","")}', '{user.Replace("'","")}', '{companyItem.name.Replace("'","")}', '{companyItem.url.Replace("'","")}', '{companyItem.details.Replace("'","")}')";            
             var sqlInsertResult = ExecuteAgent("sql-execute", new List<string> { sqlInsertQuery });
         }        
         return "";
