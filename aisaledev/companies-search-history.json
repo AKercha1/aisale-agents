@@ -1,0 +1,72 @@
+{
+  "IsEnabled": true,
+  "Name": "companies-search-history",
+  "Description": "companies-search-history",
+  "LlmType": null,
+  "Type": "CsharpCode",
+  "Content": {
+    "csharpCode": {
+      "Name": "C# Code",
+      "Code": "csharpCode",
+      "Value": "companies-search-history-csharpCode.cs",
+      "Extension": "cs"
+    },
+    "temperature": {
+      "Name": "",
+      "Code": "temperature",
+      "Value": "0.5"
+    },
+    "enabledAgents": {
+      "Name": "",
+      "Code": "enabledAgents",
+      "Value": "{}"
+    },
+    "outputDescription": {
+      "Name": "Output Description",
+      "Code": "outputDescription",
+      "Value": "Companies Search History JSON"
+    },
+    "useSettingsAgents": {
+      "Name": "",
+      "Code": "useSettingsAgents",
+      "Value": "true"
+    },
+    "settingsSampleCode": {
+      "Name": "",
+      "Code": "settingsSampleCode",
+      "Value": "## Sample of the code just to describe base capabilities and syntax:\n\n```csharp\n// if some NuGet package needed, use the following syntax. Use ONLY packages, which are needed for the code to run.\n#r \"nuget: PdfiumViewer, 2.13\" \n\n// include all required usings\nusing System; \nusing System.Collections.Generic;\n\n// This class must be present in the code. Main class to run the code\nclass Agent \n{\n    // This method must be present in the code. Main method to run the code\n    public string Run(\n        Dictionary<string, string> Parameters,\n        AiCoreApi.Common.RequestAccessor RequestAccessor,\n        AiCoreApi.Common.ResponseAccessor ResponseAccessor,\n        Func<string, List<string>?, string> ExecuteAgent,\n        // GetCacheValue is used to get cache value between agents and runs. Use it like GetCacheValue(\"key\");\n        Func<string, string> GetCacheValue,\n        // SetCacheValue is used to set cache value between agents and runs. Use it like SetCacheValue(\"key\", \"value\", ttlInSeconds);\n        Func<string, string, int, string> SetCacheValue,\n        // Logger is used to log information. Use it like Logger.LogInformation(\"Some information\");\n        Microsoft.Extensions.Logging.ILogger<AiCoreApi.SemanticKernel.Agents.CsharpCodeAgent> Logger)\n    {\n        // The syntax to provide debug information. Use only if you have explicit instructions to do so. Parameters: sender, title, details\n        ResponseAccessor.AddDebugMessage(\"Agent\", \"Debug\", \"Debug message\");\n\n        // all parameter values must be taken from \"Parameters\". Keys are \"parameter1\", \"parameter2\", etc.\n        string phraseToTranslate = Parameters[\"parameter1\"]; \n        \n        // The way to run other agents. First parameter is Agent name. Second parameter - List of strings with parameters for the specified agent. \n        var translateResult = ExecuteAgent(\"Translate\", new List<string> { phraseToTranslate, \"Russian\" }); \n        \n        // The syntax to work with files from the message. The file is stored in the last message in the list of messages. Use only if the agent receives files.\n        var base64file = RequestAccessor.MessageDialog.Messages[RequestAccessor.MessageDialog.Messages.Count - 1].Files[0].Base64Data.Split(\",\")[1];\n\n        // The code must return string. If nothing need to return then return empty string. If need to return object then return it in JSON. If need to return binary then return base64 data.\n        return translateResult;\n    }\n}\n  ``` "
+    },
+    "settingsOverallPrompt": {
+      "Name": "",
+      "Code": "settingsOverallPrompt",
+      "Value": "%%USER_INPUT%%\r\n\r\n%%COMMON_TASK_DESCRIPTION%%\r\n\r\n%%SAMPLE_CODE%%\r\n\r\n%%CURRENT_CODE_PLACEHOLDER%%\r\n\r\n%%AGENTS_DESCRIPTION%%"
+    },
+    "useSettingsSampleCode": {
+      "Name": "",
+      "Code": "useSettingsSampleCode",
+      "Value": "true"
+    },
+    "settingsTaskDescription": {
+      "Name": "",
+      "Code": "settingsTaskDescription",
+      "Value": "## Common Instructions\n- Generate valid C# code.\n- Do not manually implement functionality that Available Agents can provide.\n- All descriptions must be incorporated as comments. Use descriptions only when needed."
+    },
+    "useSettingsTaskDescription": {
+      "Name": "",
+      "Code": "useSettingsTaskDescription",
+      "Value": "true"
+    },
+    "settingsCurrentCodeDescription": {
+      "Name": "",
+      "Code": "settingsCurrentCodeDescription",
+      "Value": "## Code to fix:\n%%CURRENT_CODE_DESCRIPTION%%\n```csharp\n%%CURRENT_CODE%%\n```"
+    },
+    "useSettingsCurrentCodeDescription": {
+      "Name": "",
+      "Code": "useSettingsCurrentCodeDescription",
+      "Value": "true"
+    }
+  },
+  "Tags": [],
+  "Version": 0
+}

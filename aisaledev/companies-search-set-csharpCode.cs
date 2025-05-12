@@ -23,7 +23,8 @@ class Agent
                 executed_by = '{companiesSearch.executed_by}',
                 state = '{companiesSearch.state}',
                 company_search_data = '{companiesSearch.company_search_data.Replace("'","")}',
-                last_message = '{companiesSearch.last_message.Replace("'","")}'
+                last_message = '{companiesSearch.last_message.Replace("'","")}',
+                log = '{companiesSearch.log.Replace("'","")}'
             WHERE company_search_guid = '{companiesSearch.company_search_guid}'";
 
         var sqlResult = ExecuteAgent("sql-execute", new List<string> { sqlUpdateQuery });
@@ -40,4 +41,5 @@ class CompanySearchItem
     public string state { get; set; }
     public string company_search_data { get; set; }
     public string last_message { get; set; }
+    public string log { get; set; }
 }

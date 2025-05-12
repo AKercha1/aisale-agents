@@ -30,8 +30,8 @@ class Agent
 
         var companySearchDataJson = JsonConvert.SerializeObject(companySearchData);
         var sqlInsertQuery = $@"
-            INSERT INTO public.company_search (company_search_guid, executed_by, state, company_search_data, last_message)
-            VALUES ('{companySearchGuid}', '{user}', 'new', '{companySearchDataJson}', 'Search ID: {companySearchGuid}')";
+            INSERT INTO public.company_search (company_search_guid, executed_by, state, company_search_data, last_message, log)
+            VALUES ('{companySearchGuid}', '{user}', 'new', '{companySearchDataJson}', 'Search ID: {companySearchGuid}', '')";
         
         var sqlResult = ExecuteAgent("sql-execute", new List<string> { sqlInsertQuery });
         
