@@ -21,7 +21,7 @@ class Agent
             var firstResult = parsedResult[0].Select(x => x.name).ToList();
             return JsonConvert.SerializeObject(firstResult);
         }        
-        return "Error";
+        return "[]";
     }
 }
 

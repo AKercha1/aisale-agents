@@ -16,12 +16,12 @@ class Agent
         var sqlSelectQuery = @"select * from public.company";
         var sqlSelectResult = ExecuteAgent("sql-execute", new List<string> { sqlSelectQuery });
         var parsedResult = JsonConvert.DeserializeObject<List<List<CompanyItem>>>(sqlSelectResult);
-        if (parsedResult != null && parsedResult.Count > 0)
+        if (parsedResult != null && parsedResult.Count > 0 && parsedResult[0].Count > 0)
         {
-            var firstResult = parsedResult[0];
+            var firstResult = parsedResult[0][0];
             return JsonConvert.SerializeObject(firstResult);
         }        
-        return "[]";
+        return "Error: No Company";
     }
 }
 
