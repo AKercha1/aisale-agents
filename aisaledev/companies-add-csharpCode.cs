@@ -31,7 +31,7 @@ class Agent
                 VALUES ('search', '{companySearchGuid}', '{user}', '{companyItem.name.Replace("'", "")}', '{companyItem.url.Replace("'", "")}', '{companyItem.details.Replace("'", "")}')";
             var sqlInsertResult = ExecuteAgent("sql-execute", new List<string> { sqlInsertQuery });
         }        
-        return "Added.";
+        return "OK";
     }
 }
 
