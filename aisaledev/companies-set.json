@@ -39,7 +39,7 @@
     "parameterDescription": {
       "Name": "Parameters Description",
       "Code": "parameterDescription",
-      "Value": "Company Id,Company Item Json"
+      "Value": "Company Item Json"
     },
     "settingsOverallPrompt": {
       "Name": "",
