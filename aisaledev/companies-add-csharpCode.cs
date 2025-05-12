@@ -27,8 +27,8 @@ class Agent
             if(namesList.Contains(companyItem.name.ToUpper()))
                 continue;
             var sqlInsertQuery = $@"
-                INSERT INTO public.companies (company_search_guid, created_by, name, url, details)
-                VALUES ('{companySearchGuid}', '{user}', '{companyItem.name.Replace("'","")}', '{companyItem.url.Replace("'","")}', '{companyItem.details.Replace("'","")}')";            
+                INSERT INTO public.companies (source, source_id, created_by, name, url, details)
+                VALUES ('search', '{companySearchGuid}', '{user}', '{companyItem.name.Replace("'","")}', '{companyItem.url.Replace("'","")}', '{companyItem.details.Replace("'","")}')";            
             var sqlResult = ExecuteAgent("sql-execute", new List<string> { sqlInsertQuery });
         }        
         return "";
