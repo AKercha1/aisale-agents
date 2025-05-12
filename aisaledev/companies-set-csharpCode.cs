@@ -12,8 +12,7 @@ class Agent
         Func<string, string> GetCacheValue,
         Func<string, string, int, string> SetCacheValue)
     {
-        string companyId = Parameters["parameter1"].Replace("'", ""); 
-        string companyItemJson = Parameters["parameter2"]; 
+        string companyItemJson = Parameters["parameter1"]; 
         var companyItemsList = JsonConvert.DeserializeObject<List<CompanyItem>>(companyItemJson);
         foreach (var companyItem in companyItemsList)
         {
@@ -30,7 +29,7 @@ class Agent
                     ai_opportunities_generated = {companyItem.ai_opportunities_generated.ToString().ToLower()},
                     proposal_generated = {companyItem.proposal_generated.ToString().ToLower()},
                     updated_at = now()
-                WHERE company_id = {companyId};";
+                WHERE company_id = {companyItem.company_id};";
 
             ExecuteAgent("sql-execute", new List<string> { sqlUpdateQuery });
         }
